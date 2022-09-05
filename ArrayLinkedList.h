@@ -20,7 +20,7 @@ class ArrayLinkedList {
 private:
     Node<T>* head{};
     Node<T>* tail{};
-    int array_size{};          //once initialized will remain constant
+    const int array_size{};          //once initialized will remain constant
     int linked_list_size{};    //changes with every insertion
 
 
@@ -39,7 +39,6 @@ private:
             tail = cur;
             cur->next = nullptr;
         }
-        linked_list_size++;
     }
 
     void insert_front(Node<T> *cur){
@@ -51,7 +50,6 @@ private:
             head = cur;
             cur->prev = nullptr;
         }
-        linked_list_size++;
     }
 
     void insert_after(Node<T>* prev, Node<T> *cur){
@@ -91,9 +89,23 @@ public:
     }
 
 
-    //returns the node of the given index, if not found returns the node of the last index before the given index
-    //e.g. if there are indices 0, 1, 4, 6 and we search for node of index 5, the node with index 4 will be returned
-    Node<T>* get_by_index(int index);
+    //returns the node of the given index, if not found returns the node of the last index before the given index.
+    //e.g. if there are indices 0, 1, 4, 6 and we search for node of index 5, the node with index 4 will be returned.
+    //returns nullptr if the index is less than the index of the head
+    Node<T>* get_by_index(int index){
+        if(index >= tail->index){
+            return tail;
+        }
+        if(index < head->index){
+            return nullptr;
+        }
+        auto cur = head;
+        for(; cur && cur->index <= index; cur = cur->next){
+            if(cur->index == index)
+                return cur;
+        }
+        return cur;
+    }
 
     void set_value(T val, int index);
 
