@@ -30,28 +30,6 @@ private:
         second->prev = first;
     }
 
-    void insert_back(Node<T> *cur){
-        if(!linked_list_size){
-            head = tail = cur;
-        }else {
-            tail->next = cur;
-            cur->prev = tail;
-            tail = cur;
-            cur->next = nullptr;
-        }
-    }
-
-    void insert_front(Node<T> *cur){
-        if(!linked_list_size){
-            head = tail = cur;
-        }else {
-            cur->next = head;
-            head->prev = cur;
-            head = cur;
-            cur->prev = nullptr;
-        }
-    }
-
     void insert_after(Node<T>* prev, Node<T> *cur){
         if(prev == tail){
             insert_end(cur);
@@ -65,8 +43,8 @@ private:
     }
 
 public:
-    ArrayLinkedList(int size):array_size(size){}
 
+    ArrayLinkedList(int size):array_size(size){}
     ~ArrayLinkedList(){
         for(Node<T> *cur = head, *nxt = nullptr; cur;){
             nxt = cur->next;
@@ -81,11 +59,37 @@ public:
         }
         cout << '\n';
     }
+
     void print_list_reversed(){
         for(auto cur = tail; cur; cur = cur->prev){
             cout << cur->data << ' ';
         }
         cout << '\n';
+    }
+
+    //todo raga3hom private w sheel incremete el ll
+    void insert_back(Node<T> *cur){
+        if(!linked_list_size){
+            head = tail = cur;
+        }else {
+            tail->next = cur;
+            cur->prev = tail;
+            tail = cur;
+            cur->next = nullptr;
+        }
+        linked_list_size++;
+    }
+
+    void insert_front(Node<T> *cur){
+        if(!linked_list_size){
+            head = tail = cur;
+        }else {
+            cur->next = head;
+            head->prev = cur;
+            head = cur;
+            cur->prev = nullptr;
+        }
+        linked_list_size++;
     }
 
 
@@ -99,12 +103,14 @@ public:
         if(index < head->index){
             return nullptr;
         }
+        if(linked_list_size == 1)
+            return head;
         auto cur = head;
         for(; cur && cur->index <= index; cur = cur->next){
             if(cur->index == index)
                 return cur;
         }
-        return cur;
+        return cur->prev;
     }
 
     void set_value(T val, int index);

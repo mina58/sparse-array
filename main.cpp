@@ -5,6 +5,6 @@ using namespace std;
 
 int main(){
     ArrayLinkedList<int> a(10);
-    a.print_list();
-    a.print_list_reversed();
+    a.insert_back(new Node<int>(1, 1));
+    a.insert_back(new Node<int>(2, 3));
 }
