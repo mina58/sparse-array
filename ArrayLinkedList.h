@@ -195,7 +195,16 @@ public:
         }
     }
 
-    void add(ArrayLinkedList<T>*);
+    void add(ArrayLinkedList<T>* a2){
+        if(a2->array_size > array_size){
+            cout << "size of the added added array must be less than or equal the original\n";
+        }
+        else{
+            for(auto cur = a2->head; cur; cur = cur->next){
+                set_value(get_value(cur->index) + cur->data, cur->index);
+            }
+        }
+    }
 
     ArrayLinkedList(const ArrayLinkedList<T>&) = delete;
 
