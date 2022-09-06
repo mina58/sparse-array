@@ -5,6 +5,7 @@ using namespace std;
 
 int main(){
     ArrayLinkedList<int> a(10);
-    a.insert_back(new Node<int>(1, 1));
-    a.insert_back(new Node<int>(2, 3));
+    cout << a.get_linked_length() << '\n';
+    a.print_indices();
+    a.print_list();
 }

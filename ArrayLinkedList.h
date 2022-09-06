@@ -32,7 +32,7 @@ private:
 
     void insert_after(Node<T>* prev, Node<T> *cur){
         if(prev == tail){
-            insert_end(cur);
+            insert_back(cur);
         }
         else{
             cur->next = prev->next;
@@ -67,7 +67,14 @@ public:
         cout << '\n';
     }
 
-    //todo raga3hom private w sheel incremete el ll
+    void print_indices(){
+        for(auto cur = head; cur; cur = cur->next){
+            cout << cur->index << ' ';
+        }
+        cout << '\n';
+    }
+
+    //todo raga3hom private
     void insert_back(Node<T> *cur){
         if(!linked_list_size){
             head = tail = cur;
@@ -77,7 +84,6 @@ public:
             tail = cur;
             cur->next = nullptr;
         }
-        linked_list_size++;
     }
 
     void insert_front(Node<T> *cur){
@@ -89,7 +95,10 @@ public:
             head = cur;
             cur->prev = nullptr;
         }
-        linked_list_size++;
+    }
+
+    int get_linked_length(){
+        return linked_list_size;
     }
 
 
@@ -113,7 +122,40 @@ public:
         return cur->prev;
     }
 
-    void set_value(T val, int index);
+    void set_value(T val, int index){
+        if(!linked_list_size){
+            auto node = new Node<T>(val, index);
+            insert_back(node);
+            linked_list_size++;
+            return;
+        }
+        if(index < 0 || index > array_size){
+            cout << "index out of bounds";
+            return;
+        }
+        if(index < head->index){
+            auto node = new Node<T>(val, index);
+            insert_front(node);
+            linked_list_size++;
+            return;
+        }
+        if(index > tail->index){
+            auto node = new Node<T>(val, index);
+            insert_back(node);
+            linked_list_size++;
+            return;
+        }
+        auto prev = get_by_index(index);
+        if(prev->index == index){
+            prev->data = val;
+        }
+        else{
+            auto node = new Node<T>(val, index);
+            insert_after(prev, node);
+            linked_list_size++;
+        }
+
+    }
 
     void print_array();
 
