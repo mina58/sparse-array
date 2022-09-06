@@ -42,17 +42,6 @@ private:
         }
     }
 
-public:
-
-    ArrayLinkedList(int size):array_size(size){}
-    ~ArrayLinkedList(){
-        for(Node<T> *cur = head, *nxt = nullptr; cur;){
-            nxt = cur->next;
-            delete cur;
-            cur = nxt;
-        }
-    }
-
     void print_list(){
         for(auto cur = head; cur; cur = cur->next){
             cout << cur->data << ' ';
@@ -81,7 +70,6 @@ public:
         cout << '\n';
     }
 
-    //todo raga3hom private
     void insert_back(Node<T> *cur){
         if(!linked_list_size){
             head = tail = cur;
@@ -128,6 +116,18 @@ public:
         }
         return cur->prev;
     }
+
+public:
+
+    ArrayLinkedList(int size):array_size(size){}
+    ~ArrayLinkedList(){
+        for(Node<T> *cur = head, *nxt = nullptr; cur;){
+            nxt = cur->next;
+            delete cur;
+            cur = nxt;
+        }
+    }
+
 
     void set_value(T val, int index){
         if(!linked_list_size){
