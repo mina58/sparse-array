@@ -67,9 +67,16 @@ public:
         cout << '\n';
     }
 
-    void print_indices(){
+    void print_linked_indices(){
         for(auto cur = head; cur; cur = cur->next){
             cout << cur->index << ' ';
+        }
+        cout << '\n';
+    }
+
+    void print_all_indices(){
+        for(int i = 0; i < array_size; i++){
+            cout << i << ' ';
         }
         cout << '\n';
     }
@@ -157,9 +164,36 @@ public:
 
     }
 
-    void print_array();
+    void print_array(){
+        if(!linked_list_size){
+            for(int i = 0; i < array_size; i++){
+                cout << "0 ";
+            }
+        }
+        else{
+            auto cur = head;
+            for(int i = 0; i < array_size; i++){
+                if(cur && cur->index == i){
+                    cout << cur->data << ' ';
+                    cur = cur->next;
+                }
+                else{
+                    cout << "0 ";
+                }
+            }
+        }
+        cout << '\n';
+    }
 
-    T get_value(int index);
+    T get_value(int index){
+        auto node = get_by_index(index);
+        if(node && node->index == index){
+            return node->data;
+        }
+        else{
+            return 0;
+        }
+    }
 
     void add(ArrayLinkedList<T>*);
 
